@@ -1,0 +1,177 @@
+<!doctype html> <html lang="pt-BR"> <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Quiz — Festejando (Quiz)</title> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"> <link rel="stylesheet" href="styles.css"> </head> <body> <main class="app" id="app"> <div class="bg-shapes" aria-hidden="true"></div>
+    <section id="screen-home" class="screen active" aria-labelledby="home-title">
+  <header class="header">
+    <h1 id="home-title">Quiz — História &amp; Geografia</h1>
+    <button id="btn-open-settings" class="btn-icon" aria-label="Abrir configurações" type="button">⚙️</button>
+  </header>
+
+  <div class="home-card">
+    <p class="lead">Escolha o modo, a quantidade de perguntas e divirta-se!</p>
+
+    <div class="controls-row">
+      <label for="select-diff">Modo</label>
+      <select id="select-diff" aria-label="Selecionar dificuldade">
+        <option value="facil">Fácil</option>
+        <option value="medio" selected>Médio</option>
+        <option value="dificil">Difícil</option>
+      </select>
+
+      <label for="select-count">Quantidade</label>
+      <select id="select-count" aria-label="Selecionar quantidade de perguntas">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="50">50</option>
+      </select>
+    </div>
+
+    <div class="home-actions">
+      <button id="btn-play" class="btn primary" aria-label="Jogar" type="button">Jogar</button>
+      <button id="btn-credits" class="btn ghost" aria-label="Créditos" type="button">Créditos</button>
+    </div>
+
+    <div class="settings-summary" id="settings-summary" aria-live="polite"></div>
+  </div>
+
+</section>
+
+<section id="screen-game" class="screen" aria-labelledby="game-title" hidden>
+  <header class="game-header">
+    <div class="left">
+      <button id="btn-back-menu" class="btn ghost" aria-label="Voltar ao menu" type="button">← Menu</button>
+    </div>
+    <div class="center">
+      <div id="progress-text" class="progress-text">1 / 10</div>
+      <div class="progress" aria-hidden="true">
+        <div id="progress-bar" class="progress-bar"><div class="progress-inner" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="timer" role="timer" aria-live="polite">
+        <span id="timer-seconds">20</span>s
+      </div>
+      <button id="btn-open-audio" class="btn-icon" aria-label="Abrir controles de áudio" type="button">🔊</button>
+    </div>
+  </header>
+
+  <main class="game-area">
+    <article id="question-card" class="card" tabindex="0">
+      <h2 id="game-title">Pergunta</h2>
+      <div id="question-img-wrapper" class="question-img" hidden>
+        <img id="question-img" alt="" src="" />
+      </div>
+      <p id="question-text" class="question-text">O enunciado aparecerá aqui.</p>
+
+      <div id="answers" class="answers" role="list">
+      </div>
+    </article>
+  </main>
+
+</section>
+
+<section id="screen-results" class="screen" aria-labelledby="results-title" hidden>
+  <header class="results-header">
+    <h2 id="results-title">Resultado</h2>
+  </header>
+
+  <div class="results-card card">
+    <div class="results-stats">
+      <div>Pontos: <strong id="result-score">0</strong></div>
+      <div>Acertos: <strong id="result-correct">0</strong> / <span id="result-total">0</span></div>
+      <div>Porcentagem: <strong id="result-percent">0%</strong></div>
+      <div>Tempo total: <strong id="result-time">0s</strong></div>
+    </div>
+
+    <div class="results-actions">
+      <button id="btn-restart" class="btn primary" type="button">Jogar novamente</button>
+      <button id="btn-back-menu-2" class="btn ghost" type="button">Voltar ao menu</button>
+    </div>
+  </div>
+</section>
+
+<div id="modal-settings" class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+  <div class="modal-content card">
+    <button id="modal-settings-close" class="btn-icon close" aria-label="Fechar configurações" type="button">✖</button>
+    <h3 id="settings-title">Configurações</h3>
+
+    <div class="form-row">
+      <label for="input-time">Tempo por pergunta (s)</label>
+      <input id="input-time" type="number" min="5" max="120" value="20">
+    </div>
+
+    <div class="form-row">
+      <label for="toggle-shuffle">Embaralhar perguntas</label>
+      <select id="toggle-shuffle">
+        <option value="true" selected>Ligado</option>
+        <option value="false">Desligado</option>
+      </select>
+    </div>
+
+    <fieldset>
+      <legend>Pontuação por dificuldade</legend>
+      <div class="form-row-inline">
+        <label for="score-facil">Fácil</label>
+        <input id="score-facil" type="number" min="1" value="10">
+        <label for="score-medio">Médio</label>
+        <input id="score-medio" type="number" min="1" value="20">
+        <label for="score-dificil">Difícil</label>
+        <input id="score-dificil" type="number" min="1" value="40">
+      </div>
+    </fieldset>
+
+    <div class="form-row">
+      <label for="music-volume">Volume música</label>
+      <input id="music-volume" type="range" min="0" max="1" step="0.01" value="0.35">
+    </div>
+
+    <div class="form-row settings-actions">
+      <button id="btn-save-settings" class="btn primary" type="button">Salvar</button>
+    </div>
+
+    <small class="muted">As configurações são salvas localmente no seu navegador.</small>
+  </div>
+</div>
+
+<!-- Áudios (UM único player principal) -->
+<audio id="bg-music" preload="auto" loop playsinline>
+  <source src="https://www.bensound.com/bensound-music/bensound-creativeminds.mp3" type="audio/mp3">
+  <!-- Fallback plain src in case the source element isn't used -->
+  Seu navegador não suporta o elemento de áudio.
+</audio>
+
+<audio id="sfx-correct" preload="auto" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+<audio id="sfx-wrong" preload="auto" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
+<!-- small neutral click sound (data URI or external) -->
+<audio id="sfx-click" preload="auto" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAAABVDxkAAAAAAABYAAAAGgAAAAAABG1lbW8AAABPZ2dTAAEAAAAAAA"></audio>
+<audio id="sfx-tick" preload="auto" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+
+<!-- Compatibility helpers: corrige referências inconsistentes usadas no script.js
+     - fornece $() helper
+     - faz com que document.getElementById('bgMusic') resolva para o elemento 'bg-music' quando necessário
+-->
+<script>
+  (function(){
+    // $ helper: suporta $('id') ou $('#id') similar a alguns snippets
+    window.$ = function(sel){
+      if(!sel) return null;
+      if(typeof sel !== 'string') return null;
+      if(sel[0] === '#') return document.querySelector(sel);
+      // se for 'bgMusic' -> tentar mapear para 'bg-music' também
+      if(!document.getElementById(sel) && sel === 'bgMusic') return document.getElementById('bg-music');
+      return document.getElementById(sel);
+    };
+
+    // Monkey-patch document.getElementById para resolver 'bgMusic' <-> 'bg-music' inconsistências
+    const _origGet = document.getElementById.bind(document);
+    document.getElementById = function(id){
+      // preservar comportamento normal para todos os ids existentes
+      const normal = _origGet(id);
+      if(normal) return normal;
+      // alias common mismatch
+      if(id === 'bgMusic') return _origGet('bg-music');
+      if(id === 'bg-music') return _origGet('bgMusic');
+      return null;
+    };
+  })();
+</script>
+
+<script defer src="script.js"></script>
